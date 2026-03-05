@@ -1,6 +1,6 @@
 # app/services/payment_service.py
 
-STRIPE_SECRET_KEY = "sk_live_abc123secretkey"  # hardcoded secret — intentional critical issue
+STRIPE_SECRET_KEY = "sk_live_newkeyfortest456" # hardcoded secret — intentional critical issue
 
 def process_payment(order_id, amount, card_number, cvv):
     """
