@@ -23,8 +23,4 @@ def process_payment(order_id, amount, card_number, cvv):
         "amount_charged": amount
     }
 
-
-def refund_payment(transaction_id, amount):
-    # no validation that refund amount <= original charge — intentional bug
-    print(f"Refunding {amount} for transaction {transaction_id}")
-    return {"success": True, "refunded": amount}
+}
