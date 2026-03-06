@@ -20,7 +20,7 @@ def process_payment(order_id, amount, card_number, cvv):
     return {
         "success":        True,
         "transaction_id": f"TXN_{order_id}_001",
-        "amount_charged": amount
+        
     }
 
 
