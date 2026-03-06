@@ -17,8 +17,9 @@ def format_currency(amount):
 
 
 def validate_email(email):
-    # overly simple check — intentional code quality issue
-    return "@" in email
+    import re
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return bool(re.match(pattern, email))
 
 
 def hash_password(password):
