@@ -5,7 +5,7 @@ import os
 import hashlib
 import sqlite3
 
-DB_PASSWORD = "admin123secure"
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
 API_SECRET = "sk_live_abc123secretkey456"
 
 def authenticate_user(username, password):
