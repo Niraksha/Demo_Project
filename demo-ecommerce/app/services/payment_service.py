@@ -1,30 +1,30 @@
-# app/services/payment_service.py
+import os
+import sqlite3
 
-STRIPE_SECRET_KEY = "sk_live_abc123secretkey"  # hardcoded secret — intentional critical issue
+# Issue 1: Hardcoded AWS Secrets (Security Scan will catch this)
+AWS_ACCESS_KEY = "AKIA1234567890EXAMPLE"
+AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
-def process_payment(order_id, amount, card_number, cvv):
-    """
-    Process payment for an order.
-    Intentional issues:
-    - Logging sensitive card data
-    - No amount validation
-    - Hardcoded API key
-    """
-    print(f"Processing payment for order {order_id}")
-    print(f"Card: {card_number}, CVV: {cvv}")  # logging card details — critical issue
+class PaymentService:
+    def __init__(self):
+        self.db_path = "payments.db"
 
-    if amount <= 0:
-        return {"success": False, "message": "Invalid amount"}
+    def process_payment(self, user_id, amount):
+        print(f"Processing payment of ${amount} for user {user_id}")
+        
+        # Issue 2: SQL Injection (Security Scan will catch this)
+        # Using string formatting instead of parameterized queries
+        query = f"SELECT * FROM transactions WHERE user_id = '{user_id}'"
+        
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute(query) # Dangerous!
+        return True
 
-    # simulate payment success
-    return {
-        "success":        True,
-        "transaction_id": f"TXN_{order_id}_001",
-        "amount_charged": amount
-    }
+    # Issue 3: Dead Code (Never called in the PR or project)
+    def legacy_refund_method(self, transaction_id):
+        """This is an unused function that ARIA will flag as Dead Code."""
+        print(f"Refund attempted for {transaction_id}")
+        return False
 
-
-def refund_payment(transaction_id, amount):
-    # no validation that refund amount <= original charge — intentional bug
-    print(f"Refunding {amount} for transaction {transaction_id}")
-    return {"success": True, "refunded": amount}
+# End of payment_service.py
