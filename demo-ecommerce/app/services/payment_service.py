@@ -22,7 +22,7 @@ class PaymentService:
         return True
 
     # Issue 3: Dead Code (Never called in the PR or project)
-    def legacy_refund_method(self, transaction_id):
+Remove the legacy_refund_method function
         """This is an unused function that ARIA will flag as Dead Code."""
         print(f"Refund attempted for {transaction_id}")
         return False
