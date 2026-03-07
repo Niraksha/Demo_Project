@@ -2,6 +2,7 @@
 
 A simple e-commerce backend built with Flask.
 This project is used to test the PR Review Agent.
+To check the newly added things
 
 ## Structure
 
