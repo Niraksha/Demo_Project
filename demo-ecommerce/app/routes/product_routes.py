@@ -51,3 +51,13 @@ def apply_discount(product_id):
     # no check if percent > 100 — intentional bug
     new_price = product.apply_discount(percent)
     return jsonify({"new_price": new_price})
+
+@product_bp.route("/search", methods=["GET"])
+def search_products():
+    keyword = request.args.get("keyword", "")
+    results = []
+    for product_id in products:
+        p = products[product_id]
+        if keyword.lower() in p.name.lower():
+            results.append(p.to_dict())
+    return jsonify(results)
